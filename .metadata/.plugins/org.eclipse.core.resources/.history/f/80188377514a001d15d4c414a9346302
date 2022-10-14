@@ -1,0 +1,15 @@
+package com.gabrielsousa.prolife.domain.historicals;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class PatientHistorical {
+	
+	@Id
+	private String id;
+	
+	public PatientHistorical() {
+		
+	}
+}

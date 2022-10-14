@@ -1,0 +1,68 @@
+package com.gabrielsousa.prolife;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.gabrielsousa.prolife.domain.Doctor;
+import com.gabrielsousa.prolife.domain.Hospital;
+import com.gabrielsousa.prolife.domain.Patient;
+import com.gabrielsousa.prolife.domain.Users;
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+import com.gabrielsousa.prolife.repository.HospitalRepository;
+import com.gabrielsousa.prolife.repository.PatientHistoricalRepository;
+import com.gabrielsousa.prolife.repository.PatientRepository;
+import com.gabrielsousa.prolife.repository.UsersRepository;
+
+
+
+@SpringBootApplication
+public class ProlifeApplication implements CommandLineRunner{
+	
+	@Autowired
+	HospitalRepository hospitalRepository;
+	
+	@Autowired
+	UsersRepository usersRepository;
+	
+	@Autowired
+	PatientRepository patientRepository;
+	
+	@Autowired
+	PatientHistoricalRepository patientHistoricalRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	public static void main(String[] args) {
+		SpringApplication.run(ProlifeApplication.class, args);
+	}
+	
+	@Override
+	public void run(String... args) throws Exception {
+		
+		Hospital hospital1 = new Hospital(null, "HRAN");
+		Hospital hospital2 = new Hospital(null, "HRG");
+		
+		Users users1 = new Users(null,"Gabriel Barros","gabriel.brss.gsousa@gmail.com","04912788104", UsersTypes.DOCTOR,passwordEncoder.encode("123456"));
+		Users users2 = new Users(null,"Matheus Barros","matheusr.sousa@gmail.com","04912788965",UsersTypes.PACIENT,passwordEncoder.encode("123456"));
+		Users users3 = new Users(null,"Eliane Barros","eliane.brs@hotmail.com","04912788104", UsersTypes.DIRECTOR,passwordEncoder.encode("123456"));
+		Users users4 = new Users(null,"Fábio Rodrigues","fabio.sousa@gmail.com","04912788965",UsersTypes.ADMIN,passwordEncoder.encode("123456"));
+		
+//		PatientHistorical patHis1 = new PatientHistorical(null,pat1);
+		
+		Users users5 = new Patient();
+		Users users6 = new Doctor(null,"Gabriel Barros","gabriel.brs.gsousa@gmail.com","12345678901", UsersTypes.DOCTOR,passwordEncoder.encode("123456"),'3551255');	
+//		
+		
+		hospitalRepository.saveAll(Arrays.asList(hospital1,hospital2));
+		usersRepository.saveAll(Arrays.asList(users1,users2,users3,users4,users5));
+//		patientRepository.saveAll(Arrays.asList(users5));
+//		patientHistoricalRepository.saveAll(Arrays.asList(patHis1));
+	}
+
+}

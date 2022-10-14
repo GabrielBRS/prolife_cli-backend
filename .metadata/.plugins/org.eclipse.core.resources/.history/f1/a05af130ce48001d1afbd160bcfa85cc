@@ -1,0 +1,5 @@
+package com.gabrielsousa.prolife.exception;
+
+public class FileStorageException {
+
+}

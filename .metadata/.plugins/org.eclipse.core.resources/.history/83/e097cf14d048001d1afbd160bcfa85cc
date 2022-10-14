@@ -1,0 +1,30 @@
+package com.gabrielsousa.prolife.service;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gabrielsousa.prolife.config.FileStorageConfig;
+import com.gabrielsousa.prolife.exception.FileStorageException;
+
+@Service
+public class FileStorageService {
+
+	private final Path fileStorageLocation;
+
+	@Autowired
+	public FileStorageService(FileStorageConfig fileStorageLocation) {
+		Path path = Paths.get(fileStorageLocation.getUploadDir())
+				.toAbsolutePath().normalize();
+		
+		this.fileStorageLocation = path;
+	}
+	
+	try {
+		
+	}catch(Exception e) {
+		throw new FileStorageException("Could not create the directory where the upload files will be stored!", e);
+	}
+}

@@ -1,0 +1,14 @@
+package com.gabrielsousa.prolife.repository;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.gabrielsousa.prolife.domain.Users;
+import com.gabrielsousa.prolife.domain.historicals.PatientHistorical;
+
+public interface PatientHistoricalRepository extends JpaRepository<PatientHistorical, Integer> {
+
+	@Transactional
+	Users findByEmail(String email);
+}

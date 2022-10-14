@@ -1,0 +1,98 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+
+@Entity
+@JsonTypeName("doctor_data")
+public class Doctor extends Users implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private String fristName;
+
+	private String lastName;
+	
+	private String cpf;
+	
+	private String crm;
+	
+	private Integer userType;
+
+	private String userTypeDescription;
+	
+	public Doctor() {
+		
+	}
+
+	public Doctor(Integer id, String email, String password,String fristName,String lastName, String cpf, String crm) {
+		super(id, email, password);
+		this.fristName = fristName;
+		this.lastName = lastName;
+		this.cpf = cpf;
+		this.crm = crm;
+		this.userType = UsersTypes.DOCTOR.getCod();
+		this.userTypeDescription = UsersTypes.DOCTOR.getDescription();
+	}
+	
+	public Doctor(Integer id, String email, String password, Doctor doctor) {
+		super(id, email, password);
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getFristName() {
+		return fristName;
+	}
+
+	public void setFristName(String fristName) {
+		this.fristName = fristName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCrm() {
+		return crm;
+	}
+
+	public void setCrm(String crm) {
+		this.crm = crm;
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeDescription() {
+		return userTypeDescription;
+	}
+
+	public void setUserTypeDescription(String userTypeDescription) {
+		this.userTypeDescription = userTypeDescription;
+	}
+	
+	public void setUserTypeDescription(UsersTypes userTypeDescription) {
+		this.userTypeDescription = userTypeDescription.getDescription();
+	}
+
+}

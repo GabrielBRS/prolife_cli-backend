@@ -1,0 +1,63 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+
+@Entity
+public class Admin extends Users implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	private String fristName;
+	
+	private String lastName;
+	
+	private UsersTypes usersTypes, usersTypesDescription;
+	
+	public Admin() {
+		
+	}
+
+	public Admin(Integer id, String email, String password, String fristName,String lastName) {
+		super(id, email, password);
+		this.fristName = fristName;
+		this.lastName = lastName;
+		this.usersTypes.setCod(UsersTypes.ADMIN.getCod());
+		this.usersTypesDescription.setDescription(UsersTypes.ADMIN.getDescription());
+	}
+
+	public String getFristName() {
+		return fristName;
+	}
+
+	public void setFristName(String fristName) {
+		this.fristName = fristName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public UsersTypes getUsersTypes() {
+		return usersTypes;
+	}
+
+	public void setUsersTypes(UsersTypes usersTypes) {
+		this.usersTypes = usersTypes;
+	}
+
+	public String getUsersTypesDescription() {
+		return usersTypesDescription.getDescription();
+	}
+
+	public void setUsersTypesDescription(UsersTypes usersTypesDescription) {
+		this.usersTypesDescription = usersTypesDescription;
+	}
+	
+}

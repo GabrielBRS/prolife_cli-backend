@@ -1,0 +1,44 @@
+package com.gabrielsousa.prolife.config;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.DefaultOAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.introspection.NimbusOpaqueTokenIntrospector;
+import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionClaimNames;
+import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
+
+public class CustomAuthoritiesOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
+    
+	private OpaqueTokenIntrospector delegate =
+            new NimbusOpaqueTokenIntrospector("http://localhost:4200/login", "prolife_cli_app", "@321");
+
+    public OAuth2AuthenticatedPrincipal introspect(String token) {
+        OAuth2AuthenticatedPrincipal principal = this.delegate.introspect(token);
+        return new DefaultOAuth2AuthenticatedPrincipal(
+                principal.getName(), principal.getAttributes(), extractAuthorities(principal));
+    }
+
+    private Collection<GrantedAuthority> extractAuthorities(OAuth2AuthenticatedPrincipal principal) {
+        List<String> scopes = principal.getAttribute(OAuth2IntrospectionClaimNames.SCOPE);
+        return scopes.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    } 
+    
+//    @Bean
+//    public OpaqueTokenIntrospector introspector(RestTemplateBuilder builder, OAuth2ResourceServerProperties properties) {
+//        RestOperations rest = builder
+//                .basicAuthentication(properties.getOpaquetoken().getClientId(), properties.getOpaquetoken().getClientSecret())
+//                .setConnectTimeout(Duration.ofSeconds(60))
+//                .setReadTimeout(Duration.ofSeconds(60))
+//                .build();
+//
+//        return new NimbusOpaqueTokenIntrospector(introspectionUri, rest);
+//    }
+
+}

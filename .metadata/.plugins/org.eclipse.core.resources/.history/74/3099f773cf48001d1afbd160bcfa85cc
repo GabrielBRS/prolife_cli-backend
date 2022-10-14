@@ -1,0 +1,21 @@
+package com.gabrielsousa.prolife.service;
+
+import java.nio.file.Path;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class FileStorageService {
+
+	private final Path fileStorageLocation;
+
+	public FileStorageService() {
+	}
+
+	public FileStorageService(Path fileStorageLocation) {
+		super();
+		this.fileStorageLocation = fileStorageLocation;
+	}
+	
+	
+}

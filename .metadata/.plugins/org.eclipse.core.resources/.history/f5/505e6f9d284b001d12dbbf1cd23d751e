@@ -1,0 +1,74 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+import com.gabrielsousa.prolife.domain.historicals.PatientHistorical;
+
+@Entity
+@JsonTypeName("patient_data")
+public class Patient extends Users implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@EmbeddedId
+	private Integer id;
+	
+	private String name;
+	
+	@OneToOne(cascade=CascadeType.ALL,mappedBy = "patient")
+	private PatientHistorical patientHistorical;
+	
+	public Patient() {
+		super();
+	}
+	
+	public Patient(Integer id, String name, String email, String cpf, UsersTypes userType, String password
+//			, String nameTest, PatientHistorical patientHistorical
+			) {
+		super(id,name,email,cpf,userType,password);
+//		this.name = nameTest;
+//		this.patientHistorical = patientHistorical;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public PatientHistorical getPatientHistorical() {
+		return patientHistorical;
+	}
+
+	public void setPatientHistorical(PatientHistorical patientHistorical) {
+		this.patientHistorical = patientHistorical;
+	}
+	
+//	@Override
+//	public String getEmail() {
+//		// TODO Auto-generated method stub
+//		return super.getEmail();
+//	}
+
+}

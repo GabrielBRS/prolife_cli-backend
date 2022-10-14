@@ -1,0 +1,23 @@
+package com.gabrielsousa.prolife.service;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gabrielsousa.prolife.config.FileStorageConfig;
+
+@Service
+public class FileStorageService {
+
+	private final Path fileStorageLocation;
+
+	@Autowired
+	public FileStorageService(FileStorageConfig fileStorageLocation) {
+		Path path = Paths.get(fileStorageLocation.getUploadDir());
+		this.fileStorageLocation = fileStorageLocation;
+	}
+	
+	
+}

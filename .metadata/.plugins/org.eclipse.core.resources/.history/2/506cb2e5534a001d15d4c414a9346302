@@ -1,0 +1,35 @@
+package com.gabrielsousa.prolife.domain.historicals;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gabrielsousa.prolife.domain.Users;
+
+@Entity
+public class PatientHistorical {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name="patient_historical")
+	@MapsId
+	private Users user;
+	
+	public PatientHistorical() {
+		
+	}
+	
+	public PatientHistorical(Integer id, Users user) {
+		this.id = id;
+		this.user.setName(user.getName());
+	}
+}

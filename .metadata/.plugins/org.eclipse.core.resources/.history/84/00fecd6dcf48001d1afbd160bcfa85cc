@@ -1,0 +1,5 @@
+package com.gabrielsousa.prolife.service;
+
+public class FileStorageService {
+
+}

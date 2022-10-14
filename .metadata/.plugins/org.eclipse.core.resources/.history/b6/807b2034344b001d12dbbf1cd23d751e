@@ -1,0 +1,29 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+
+@Entity
+public class Doctor extends Users implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
+	
+	private String crm;
+	
+	public Doctor() {
+		
+	}
+
+	public Doctor(Integer id, String name, String email, String cpf, UsersTypes userType, String password, String crm) {
+		super(id, name, email, cpf, userType, password);
+		this.crm = crm;
+	}
+	
+	
+}

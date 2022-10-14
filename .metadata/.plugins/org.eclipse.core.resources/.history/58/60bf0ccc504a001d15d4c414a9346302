@@ -1,0 +1,5 @@
+package com.gabrielsousa.prolife.domain.historicals;
+
+public class PatientHistorical {
+
+}

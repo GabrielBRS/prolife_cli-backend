@@ -1,0 +1,5 @@
+package com.gabrielsousa.prolife.repository;
+
+public interface PatientHistoricalRepository {
+
+}

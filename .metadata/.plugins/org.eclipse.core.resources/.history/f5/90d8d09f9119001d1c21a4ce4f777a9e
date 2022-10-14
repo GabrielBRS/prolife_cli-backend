@@ -1,0 +1,40 @@
+package com.gabrielsousa.prolife;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.gabrielsousa.prolife.domain.Hospital;
+import com.gabrielsousa.prolife.domain.Users;
+import com.gabrielsousa.prolife.repository.HospitalRepository;
+import com.gabrielsousa.prolife.repository.UsersRepository;
+
+@SpringBootApplication
+public class ProlifeApplication implements CommandLineRunner{
+	
+	@Autowired
+	HospitalRepository hospitalRepository;
+	
+	@Autowired
+	UsersRepository usersRepository;
+
+	public static void main(String[] args) {
+		SpringApplication.run(ProlifeApplication.class, args);
+	}
+	
+	@Override
+	public void run(String... args) throws Exception {
+		
+		Hospital hospital1 = new Hospital(null, "HRAN");
+		Hospital hospital2 = new Hospital(null, "HRG");
+		
+		Users users1 = new Users(null,"Gabriel Barros","gabriel.brs.gsousa@gmail.com","04912788104",4,"123456");
+		
+		hospitalRepository.save(hospital1);
+		hospitalRepository.save(hospital2);
+		usersRepository.save(users1);
+		
+	}
+
+}

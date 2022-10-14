@@ -1,0 +1,46 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+
+@Entity
+public class Users implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	private String name;
+	
+	@Column(unique=true)
+	private String email;
+	
+	private String cpf;
+	
+	private Integer userType;
+	
+	@JsonIgnore
+	private String password;
+	
+	public Users() {
+		addUserType();
+	}
+	
+	public void setPerfis(Set<Integer> usersTypes) {
+		this.perfis = usersTypes;
+	}
+	
+	public void addUserType(UsersTypes usersTypes) {
+		perfis.add(usersTypes.getCod());
+	}
+}

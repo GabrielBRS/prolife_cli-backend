@@ -1,0 +1,14 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+
+public class UploadFileResponse implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
+	private String fileDownloadUri;
+	private String fileType;
+	private Long size;
+
+}

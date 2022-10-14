@@ -1,0 +1,183 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.validation.constraints.Email;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+public class Users implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	private String name;
+	
+	@Column(unique=true)
+	@Email
+	private String email;
+	
+	private String cpf;
+	
+	private Integer userType;
+	
+	private String userTypeDescription;
+	
+	@ElementCollection
+	@CollectionTable(name="TELEPHONE")
+	private Set<String> telefones = new HashSet<>();
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private LinkedHashMap<String,String> testAnamnese;
+	
+	@JsonIgnore
+	private String password;
+	
+	public Users() {
+		
+	}
+	
+	public Users(Integer id, String name, String email, String cpf, UsersTypes userType, String password) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.cpf = cpf;
+		this.userType = (userType==null)?null:userType.getCod();
+		this.userTypeDescription = userType.getDescription();
+		this.password = password;
+		addUserType(UsersTypes.PACIENT);
+		testAnamnese = new LinkedHashMap<>();
+		testAnamnese.put(cpf, password);
+	}
+
+	public Set<UsersTypes> getPerfis() {	
+		return perfis.stream().map(x-> UsersTypes.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void setPerfis(Set<Integer> usersTypes) {
+		this.perfis = usersTypes;
+	}
+	
+	public void addUserType(UsersTypes usersTypes) {
+		perfis.add(usersTypes.getCod());
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeDescription() {
+		return userTypeDescription;
+	}
+
+	public void setUserTypeDescription(UsersTypes userTypeDescription) {
+		this.userTypeDescription = userTypeDescription.getDescription();
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setUserTypeDescription(String userTypeDescription) {
+		this.userTypeDescription = userTypeDescription;
+	}
+
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", name=" + name + ", email=" + email + ", cpf=" + cpf + ", userType=" + userType
+				+ ", telefones=" + telefones + ", perfis=" + perfis + ", password=" + password + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Users other = (Users) obj;
+		return Objects.equals(id, other.id);
+	}
+	
+}
