@@ -12,7 +12,9 @@ public class Director extends Users implements Serializable{
 	
 	private String name;
 	
-	private UsersTypes usersTypes;
+	private Integer userType;
+	
+	private String userTypeDescription;
 	
 	public Director() {
 		
@@ -21,8 +23,9 @@ public class Director extends Users implements Serializable{
 	public Director(Integer id, String email, String password, String name) {
 		super(id, email, password);
 		this.name = name;
-		this.usersTypes = UsersTypes.ASSISTANT;
-		addPerfil(usersTypes);
+		this.userType = UsersTypes.DIRECTOR.getCod();
+		this.userTypeDescription = UsersTypes.DIRECTOR.getDescription();
+		addPerfil(UsersTypes.DIRECTOR);
 	}
 
 	public String getName() {
@@ -33,4 +36,20 @@ public class Director extends Users implements Serializable{
 		this.name = name;
 	}
 
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeDescription() {
+		return userTypeDescription;
+	}
+
+	public void setUserTypeDescription(String userTypeDescription) {
+		this.userTypeDescription = userTypeDescription;
+	}
+	
 }

@@ -1,0 +1,67 @@
+package com.gabrielsousa.prolife.domain;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+
+@Entity
+public class Organization extends Users implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private String cnpj;
+	
+	private Integer userType;
+	private String userTypeDescription;
+
+	@OneToMany(mappedBy ="organization",cascade = CascadeType.ALL)
+	private List<Hospital> hospital;
+	
+	public Organization() {
+		
+	}
+
+	public Organization(Integer id, String email, String password, String cnpj) {
+		super(id, email, password);
+		this.cnpj = cnpj;
+		this.userType = UsersTypes.HOSPITAL.getCod();
+		this.userTypeDescription = UsersTypes.HOSPITAL.getDescription();
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public List<Hospital> getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(List<Hospital> hospital) {
+		this.hospital = hospital;
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeDescription() {
+		return userTypeDescription;
+	}
+
+	public void setUserTypeDescription(String userTypeDescription) {
+		this.userTypeDescription = userTypeDescription;
+	}
+
+}

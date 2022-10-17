@@ -1,18 +1,22 @@
 package com.gabrielsousa.prolife.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+import com.gabrielsousa.prolife.domain.health.Anamnese;
 
 @Entity
 @JsonTypeName("doctor_data")
 public class Doctor extends Users implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private String fristName;
+	private String firstName;
 
 	private String lastName;
 	
@@ -20,34 +24,34 @@ public class Doctor extends Users implements Serializable{
 	
 	private String crm;
 	
-	private UsersTypes usersTypes;
-	
 	private Integer userType;
 	
 	private String userTypeDescription;
+	
+	@ManyToMany(mappedBy = "doctor")
+	private List<Anamnese> anamnese = new ArrayList<Anamnese>();
 	
 	public Doctor() {
 		
 	}
 
-	public Doctor(Integer id, String email, String password,String fristName,String lastName, String cpf, String crm) {
+	public Doctor(Integer id, String email, String password,String firstName,String lastName, String cpf, String crm) {
 		super(id, email, password);
-		this.fristName = fristName;
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.cpf = cpf;
 		this.crm = crm;
-		this.usersTypes = UsersTypes.DOCTOR;
 		this.userType = UsersTypes.DOCTOR.getCod();
 		this.userTypeDescription = UsersTypes.DOCTOR.getDescription();
-		addPerfil(usersTypes);
+		addPerfil(UsersTypes.DOCTOR);
 	}
 
-	public String getFristName() {
-		return fristName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFristName(String fristName) {
-		this.fristName = fristName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -74,14 +78,6 @@ public class Doctor extends Users implements Serializable{
 		this.crm = crm;
 	}
 
-	public UsersTypes getUsersTypes() {
-		return usersTypes;
-	}
-
-	public void setUsersTypes(UsersTypes usersTypes) {
-		this.usersTypes = usersTypes;
-	}
-
 	public Integer getUserType() {
 		return userType;
 	}
@@ -96,6 +92,14 @@ public class Doctor extends Users implements Serializable{
 
 	public void setUserTypeDescription(String userTypeDescription) {
 		this.userTypeDescription = userTypeDescription;
+	}
+
+	public List<Anamnese> getAnamnese() {
+		return anamnese;
+	}
+
+	public void setAnamnese(List<Anamnese> anamnese) {
+		this.anamnese = anamnese;
 	}
 
 }

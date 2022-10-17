@@ -29,6 +29,6 @@ public class Consults implements Serializable{
 	}
 
 	public Consults(Patient patient) {
-		this.patientName = patient.getFristName();
+		this.patientName = patient.getFirstName();
 	}
 }

@@ -9,31 +9,34 @@ import com.gabrielsousa.prolife.domain.enums.UsersTypes;
 @Entity
 public class Admin extends Users implements Serializable{
 	private static final long serialVersionUID = 1L;
-
-	private String fristName;
+	
+	private String firstName;
 	
 	private String lastName;
 	
-	private UsersTypes usersTypes;
+	private Integer userType;
+	
+	private String userTypeDescription;
 	
 	public Admin() {
 		
 	}
 
-	public Admin(Integer id, String email, String password, String fristName,String lastName) {
+	public Admin(Integer id, String email, String password, String firstName,String lastName) {
 		super(id, email, password);
-		this.fristName = fristName;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		this.usersTypes = UsersTypes.ADMIN;
-		addPerfil(usersTypes);
+		this.userType = UsersTypes.ADMIN.getCod();
+		this.userTypeDescription = UsersTypes.ADMIN.getDescription();
+		addPerfil(UsersTypes.ADMIN);
 	}
 
-	public String getFristName() {
-		return fristName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFristName(String fristName) {
-		this.fristName = fristName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -44,12 +47,20 @@ public class Admin extends Users implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public UsersTypes getUsersTypes() {
-		return usersTypes;
+	public Integer getUserType() {
+		return userType;
 	}
 
-	public void setUsersTypes(UsersTypes usersTypes) {
-		this.usersTypes = usersTypes;
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeDescription() {
+		return userTypeDescription;
+	}
+
+	public void setUserTypeDescription(String userTypeDescription) {
+		this.userTypeDescription = userTypeDescription;
 	}
 	
 }

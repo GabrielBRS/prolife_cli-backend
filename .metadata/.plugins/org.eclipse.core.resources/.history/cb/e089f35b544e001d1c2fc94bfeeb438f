@@ -1,0 +1,93 @@
+package com.gabrielsousa.prolife.domain.health;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gabrielsousa.prolife.domain.Doctor;
+import com.gabrielsousa.prolife.domain.Patient;
+
+@Entity
+public class Anamnese implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(
+			  name = "PATIENT_ANAMNESE", 
+			  joinColumns = @JoinColumn(name = "anamnese_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "patient_id"))
+	private List<Patient> patient = new ArrayList<Patient>() ;
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(
+			  name = "DOCTOR_ANAMNESE", 
+			  joinColumns = @JoinColumn(name = "anamnese_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "doctor_id"))
+	private List<Doctor> doctor = new ArrayList<Doctor>();
+	
+	private LocalDateTime date;
+	
+	public Anamnese() {
+		
+	}
+
+	public Anamnese(Integer id, List<Patient> patient, List<Doctor> doctor) {
+		super();
+		this.id = id;
+		this.patient = patient;
+		this.doctor = doctor;
+		this.date.getYear();
+	}
+
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public List<Patient> getPatient() {
+		return patient;
+	}
+
+	public void setPatient(List<Patient> patient) {
+		this.patient = patient;
+	}
+
+	public List<Doctor> getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(List<Doctor> doctor) {
+		this.doctor = doctor;
+	}
+
+	public LocalDateTime getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDateTime  date) {
+		this.date = date;
+	}
+
+}

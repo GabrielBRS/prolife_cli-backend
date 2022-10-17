@@ -1,13 +1,17 @@
 package com.gabrielsousa.prolife.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gabrielsousa.prolife.domain.enums.UsersTypes;
+import com.gabrielsousa.prolife.domain.health.Anamnese;
 import com.gabrielsousa.prolife.domain.health.historicals.PatientHistorical;
 
 @Entity
@@ -15,7 +19,7 @@ import com.gabrielsousa.prolife.domain.health.historicals.PatientHistorical;
 public class Patient extends Users implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String fristName;
+	private String firstName;
 
 	private String lastName;
 
@@ -26,33 +30,28 @@ public class Patient extends Users implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "patient")
 	private PatientHistorical patientHistorical;
 
+	@ManyToMany(mappedBy = "patient")
+	private List<Anamnese> anamnese = new ArrayList<Anamnese>();
+
 	public Patient() {
 		super();
 	}
 
-	public Patient(Integer id, String email, String password, String fristName, String lastName) {
+	public Patient(Integer id, String email, String password, String firstName, String lastName) {
 		super(id, email, password);
-		this.fristName = fristName;
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userType = UsersTypes.PACIENT.getCod();
 		this.userTypeDescription = UsersTypes.PACIENT.getDescription();
+		addPerfil(UsersTypes.PACIENT);
+	}
+	
+	public String getFirstName() {
+		return firstName;
 	}
 
-//	public Patient(Integer id, String fristName, String lastName, String email, String cpf, String password,
-//			UsersTypes userType) {
-//		super(id, fristName, lastName, email, cpf, password);
-////		this.name = nameTest;
-////		this.patientHistorical = patientHistorical;
-////		this.userType = (userType==null)?null:userType.getCod();
-//		this.userType = UsersTypes.PACIENT.getCod();
-//	}
-
-	public String getFristName() {
-		return fristName;
-	}
-
-	public void setFristName(String fristName) {
-		this.fristName = fristName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -91,4 +90,12 @@ public class Patient extends Users implements Serializable {
 		this.userTypeDescription = userTypeDescription.getDescription();
 	}
 
+	public List<Anamnese> getAnamnese() {
+		return anamnese;
+	}
+
+	public void setAnamnese(List<Anamnese> anamnese) {
+		this.anamnese = anamnese;
+	}
+	
 }

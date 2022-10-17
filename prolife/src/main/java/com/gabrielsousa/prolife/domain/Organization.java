@@ -16,6 +16,7 @@ public class Organization extends Users implements Serializable{
 	private String cnpj;
 	
 	private Integer userType;
+	
 	private String userTypeDescription;
 
 	@OneToMany(mappedBy ="organization",cascade = CascadeType.ALL)
@@ -28,8 +29,9 @@ public class Organization extends Users implements Serializable{
 	public Organization(Integer id, String email, String password, String cnpj) {
 		super(id, email, password);
 		this.cnpj = cnpj;
-		this.userType = UsersTypes.HOSPITAL.getCod();
-		this.userTypeDescription = UsersTypes.HOSPITAL.getDescription();
+		this.userType = UsersTypes.ORGANIZATION.getCod();
+		this.userTypeDescription = UsersTypes.ORGANIZATION.getDescription();
+		addPerfil(UsersTypes.ORGANIZATION);
 	}
 
 	public String getCnpj() {

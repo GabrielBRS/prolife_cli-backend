@@ -10,30 +10,33 @@ import com.gabrielsousa.prolife.domain.enums.UsersTypes;
 public class Assistant extends Users implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String fristName;
+	private String firstName;
 
 	private String lastName;
 	
-	private UsersTypes usersTypes;
+	private Integer userType;
+	
+	private String userTypeDescription;
 	
 	public Assistant() {
 		
 	}
 
-	public Assistant(Integer id, String email, String password, String fristName, String lastName) {
+	public Assistant(Integer id, String email, String password, String firstName, String lastName) {
 		super(id, email, password);
-		this.fristName = fristName;
+		this.firstName = firstName;
 		this.lastName =lastName;
-		this.usersTypes = UsersTypes.ASSISTANT;
-		addPerfil(usersTypes);
+		this.userType = UsersTypes.ASSISTANT.getCod();
+		this.userTypeDescription = UsersTypes.ASSISTANT.getDescription();
+		addPerfil(UsersTypes.ASSISTANT);
 	}
 
-	public String getFristName() {
-		return fristName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFristName(String fristName) {
-		this.fristName = fristName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -44,4 +47,20 @@ public class Assistant extends Users implements Serializable {
 		this.lastName = lastName;
 	}
 
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeDescription() {
+		return userTypeDescription;
+	}
+
+	public void setUserTypeDescription(String userTypeDescription) {
+		this.userTypeDescription = userTypeDescription;
+	}
+	
 }

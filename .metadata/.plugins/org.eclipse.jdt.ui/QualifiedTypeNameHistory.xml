@@ -27,15 +27,18 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
     <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
-    <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
     <fullyQualifiedTypeName name="org.hibernate.query.CastType"/>
     <fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
     <fullyQualifiedTypeName name="org.apache.tomcat.jni.User"/>
     <fullyQualifiedTypeName name="com.gabrielsousa.prolife.domain.Users"/>
     <fullyQualifiedTypeName name="com.gabrielsousa.prolife.domain.Admin"/>
     <fullyQualifiedTypeName name="com.gabrielsousa.prolife.domain.Assistant"/>
-    <fullyQualifiedTypeName name="com.gabrielsousa.prolife.domain.enums.UsersTypes"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.gabrielsousa.prolife.repository.DoctorRepository"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="com.gabrielsousa.prolife.domain.enums.UsersTypes"/>
+    <fullyQualifiedTypeName name="com.gabrielsousa.prolife.service.exception.AuthorizationException"/>
+    <fullyQualifiedTypeName name="javax.persistence.EmbeddedId"/>
+    <fullyQualifiedTypeName name="javax.persistence.Embeddable"/>
+    <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
 </qualifiedTypeNameHistroy>

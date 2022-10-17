@@ -17,7 +17,9 @@ public class Hospital extends Users implements Serializable{
 	
 	private String cnpj;
 	
-	private UsersTypes usersTypes;
+	private Integer userType;
+	
+	private String userTypeDescription;
 	
 	@ManyToOne
 	@JoinColumn(name="organization_id")
@@ -31,8 +33,9 @@ public class Hospital extends Users implements Serializable{
 		super(id, email, password);
 		this.name = name;
 		this.cnpj = cnpj;
-		this.usersTypes = UsersTypes.ASSISTANT;
-		addPerfil(usersTypes);
+		this.userType = UsersTypes.HOSPITAL.getCod();
+		this.userTypeDescription = UsersTypes.HOSPITAL.getDescription();
+		addPerfil(UsersTypes.HOSPITAL);
 	}
 
 	public String getName() {
@@ -57,6 +60,22 @@ public class Hospital extends Users implements Serializable{
 
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeDescription() {
+		return userTypeDescription;
+	}
+
+	public void setUserTypeDescription(String userTypeDescription) {
+		this.userTypeDescription = userTypeDescription;
 	}
 	
 }
